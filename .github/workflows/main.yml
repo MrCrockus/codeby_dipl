@@ -33,7 +33,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }} .
+        docker build -t ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }} ./java
         docker tag ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }} ${{ secrets.DOCKER_REPO }}:latest
 #      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/java-hello-world:latest .
 #    - name: Set image tag
@@ -42,3 +42,4 @@ jobs:
     - name: Push Docker image
       run: |
         docker push ${{ secrets.DOCKER_REPO }}:${{ env.IMAGE_TAG }}
+        
