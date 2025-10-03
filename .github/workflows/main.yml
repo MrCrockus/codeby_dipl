@@ -1,10 +1,6 @@
-# This is a basic workflow to help you get started with Actions
+name: CI build
 
-name: CI/CD Java app
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
@@ -16,7 +12,7 @@ env:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
@@ -47,6 +43,4 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_UREPO }}/java-hello:${{ env.IMAGE_TAG }}
-        docker push ${{ secrets.DOCKERHUB_REPO }}/java-hello:latest
-#      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/java-hello-world:latest
+        docker push ${{ secrets.DOCKER_REPO }}/java-hello:${{ env.IMAGE_TAG }}
