@@ -1,7 +1,6 @@
 name: CI build
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
@@ -44,8 +43,4 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_UREPO }}/java-hello:${{ env.IMAGE_TAG }}
-        docker push ${{ secrets.DOCKERHUB_REPO }}/java-hello:latest
-#      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/java-hello-world:latest
- other actions to build,
-          echo test, and deploy your project.
+        docker push ${{ secrets.DOCKER_REPO }}/java-hello:${{ env.IMAGE_TAG }}
