@@ -36,14 +36,10 @@ jobs:
     - name: Gen image tag
       run: echo "TAG_IM=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-
     - name: Build Docker image
       run: |
         docker build -t ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }} .
         docker tag ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }} ${{ secrets.DOCKER_REPO }}:latest
-#      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/java-hello-world:latest .
-#    - name: Set image tag
-#      run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
     - name: Push Docker image
       run: |
