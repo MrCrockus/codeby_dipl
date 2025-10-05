@@ -48,6 +48,7 @@ jobs:
 
   delpoy:
     runs-on: self-hosted
+    needs: build_and_push
     steps:
     - name: Remove container and image
       run: |
