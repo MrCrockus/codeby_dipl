@@ -45,3 +45,7 @@ jobs:
       run: |
         docker push ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }}
         docker push ${{ secrets.DOCKER_REPO }}:latest
+
+    - name: Connect SSH
+      run: |
+        
