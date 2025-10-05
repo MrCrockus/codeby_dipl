@@ -48,4 +48,5 @@ jobs:
 
     - name: Connect SSH
       run: |
-        
+        use: tiee/action-ssh@v1.0.1
+        with:
