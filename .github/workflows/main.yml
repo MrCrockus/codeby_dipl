@@ -54,12 +54,13 @@ jobs:
       run: |
        if docker ps -a -q -f  name=${{ secrets.CONTAINER_NAME }} then
          docker container stop ${{ secrets.CONTAINER_NAME }}
-         docker container rm  ${{ secrets.CONTAINER_NAME }}       
-       fi
-
-       if docker image ls -a -q ${{ secrets.DOCKER_REPO }} then
+         docker container rm  ${{ secrets.CONTAINER_NAME }}
          docker image rm ${{ secrets.DOCKER_REPO }}:latest
        fi
+
+    #   if docker image ls -a -q ${{ secrets.DOCKER_REPO }} then
+    #     docker image rm ${{ secrets.DOCKER_REPO }}:latest
+    #   fi
 
     - name: Pull and run
       run: |
