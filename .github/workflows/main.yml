@@ -53,12 +53,12 @@ jobs:
     - name: Remove container and image if exist
       run: |
        if docker inspect ${{ secrets.CONTAINER_NAME }} then
-       docker container stop ${{ secrets.CONTAINER_NAME }}
-       docker container rm  ${{ secrets.CONTAINER_NAME }}       
+         docker container stop ${{ secrets.CONTAINER_NAME }}
+         docker container rm  ${{ secrets.CONTAINER_NAME }}       
        fi
 
        if docker inspect ${{ secrets.DOCKER_REPO }} then
-       docker image rm ${{ secrets.DOCKER_REPO }}:latest
+         docker image rm ${{ secrets.DOCKER_REPO }}:latest
        fi
 
     - name: Pull and run
