@@ -47,6 +47,17 @@ jobs:
         docker push ${{ secrets.DOCKER_REPO }}:latest
 
     - name: Connect SSH
-      run: |
-        use: tiee/action-ssh@v1.0.1
-        with:
+      uses: tiyee/action-ssh@v1.0.1
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        port: ${{ secrets.SERVER_PORT }}
+        privatekey: ${{ secrets.SERVER_SSH }}
+        command: |
+          docker container stop ${{ secrets.CONTAINER_NAME }}
+          docker container rm  ${{ secrets.CONTAINER_NAME }}
+          docker image rm ${{ secrets.DOCKER_REPO }}:latest
+          docker pull ${{ secrets.DOCKER_REPO }}:latest
+          docker run -d --name ${{secrets.CONTAONER_NAME}} -p 8080:8080 ${{${{ secrets.DOCKER_REPO }}:latest}}
+          
+      
