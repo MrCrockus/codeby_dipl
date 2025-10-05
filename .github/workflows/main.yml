@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  build-and-deploy:
+  build_and_push:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,18 +46,20 @@ jobs:
         docker push ${{ secrets.DOCKER_REPO }}:${{ env.TAG_IM }}
         docker push ${{ secrets.DOCKER_REPO }}:latest
 
-    - name: Connect SSH
-      uses: tiyee/action-ssh@v1.0.1
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USERNAME }}
-        port: ${{ secrets.SERVER_PORT }}
-        privatekey: ${{ secrets.SERVER_SSH }}
-        command: |
-          docker container stop ${{ secrets.CONTAINER_NAME }}
-          docker container rm  ${{ secrets.CONTAINER_NAME }}
-          docker image rm ${{ secrets.DOCKER_REPO }}:latest
-          docker pull ${{ secrets.DOCKER_REPO }}:latest
-          docker run -d --name ${{secrets.CONTAONER_NAME}} -p 8080:8080 ${{ secrets.DOCKER_REPO }}:latest}}
-          
-      
+  delpoy:
+    runs-on: self-hosted
+    steps:
+    - name: Remove container and image
+      run: |
+       docker container stop ${{ secrets.CONTAINER_NAME }}
+       docker container rm  ${{ secrets.CONTAINER_NAME }}
+       docker image rm ${{ secrets.DOCKER_REPO }}:latest
+
+    - name: Pull and run
+      run: |
+       docker pull ${{ secrets.DOCKER_REPO }}:latest
+       docker run -d --name ${{secrets.CONTAONER_NAME}} -p 8080:8080 ${{ secrets.DOCKER_REPO }}:latest
+
+
+
+    
