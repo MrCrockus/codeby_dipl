@@ -50,11 +50,16 @@ jobs:
     runs-on: self-hosted
     needs: build_and_push
     steps:
-    - name: Remove container and image
+    - name: Remove container and image if exist
       run: |
+       if docker inspect ${{ secrets.CONTAINER_NAME }} then
        docker container stop ${{ secrets.CONTAINER_NAME }}
-       docker container rm  ${{ secrets.CONTAINER_NAME }}
+       docker container rm  ${{ secrets.CONTAINER_NAME }}       
+       fi
+
+       if docker inspect ${{ secters.DOCKER_REPO }} then
        docker image rm ${{ secrets.DOCKER_REPO }}:latest
+       fi
 
     - name: Pull and run
       run: |
